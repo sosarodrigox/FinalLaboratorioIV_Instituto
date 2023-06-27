@@ -48,6 +48,15 @@ Paquetes a instalar:
     * Axios: npm install axios
 
 ===================================================================
-Backend: 
+Backend:
+
+SQL Alchemy:
+Versión 1.4.48: https://docs.sqlalchemy.org/en/14/
+Instalación SQL Alchemy: https://docs.sqlalchemy.org/en/14/intro.html
+
+*pip install SQLAlchemy*
+
+BD: Cadena de conexión: 
+
 
 
