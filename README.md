@@ -56,7 +56,11 @@ Instalación SQL Alchemy: https://docs.sqlalchemy.org/en/14/intro.html
 
 *pip install SQLAlchemy*
 
-BD: Cadena de conexión: 
+BD: Cadena de conexión:
+
+Para conectar con SQL Alchemy y la bd, se debe crear una base de datos en PGAdmin con name:instituto user: postgres pas:admin
+
+Cadena de conexión: SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://postgres:admin@localhost/instituto"
 
 
 
