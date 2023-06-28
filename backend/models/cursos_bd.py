@@ -1,6 +1,7 @@
 # Modelo de curso para la BD (SQL Alchemy)
 from database import BaseBd
-from sqlalchemy import Column, DateTime, Integer, String
+from sqlalchemy import CheckConstraint, Column, DateTime, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
 
 
 class CursoBd(BaseBd):
@@ -10,3 +11,26 @@ class CursoBd(BaseBd):
     cantidad_alumnos = Column(Integer, nullable=False)
     fecha_inicio = Column(DateTime, nullable=False)
     fecha_fin = Column(DateTime, nullable=False)
+    profesor_titular_id = Column(
+        Integer, ForeignKey('profesores.id'), nullable=False)
+    profesor_auxiliar_id = Column(
+        Integer, ForeignKey('profesores.id'), nullable=True)
+
+    # Lazy Loading
+    # Relationships (Atributos de navegación):
+    # Profesores
+    profesor_titular = relationship("ProfesorBd", foreign_keys=[
+                                    profesor_titular_id], back_populates="cursos_asignados")
+    profesor_auxiliar = relationship("ProfesorBd", foreign_keys=[
+                                     profesor_auxiliar_id], back_populates="cursos_auxiliares")
+    # Alumnos
+    # alumnos = relationship("Alumno", secondary="inscripciones")
+
+    def __repr__(self):
+        return f"<Curso(nombre={self.nombre}, fecha_inicio={self.fecha_inicio} - fecha_fin={self.fecha_fin})>"
+
+    # Verificar que como máx haya un un prof aux y no sea el mismo que el titular TODO: (Revisar)
+    __table_args__ = (
+        CheckConstraint(
+            'profesor_auxiliar_id IS NULL OR profesor_titular_id != profesor_auxiliar_id', name='profesores_distintos'),
+    )
