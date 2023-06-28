@@ -43,6 +43,7 @@ Ejecutar:
  3) frontend> *npm run dev*
 
 Paquetes a instalar:
+
     * ReactRouter: npm install react-router-dom
 
     * Bootstrap: npm install bootstrap
