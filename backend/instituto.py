@@ -11,6 +11,9 @@ import models.profesores_bd
 import models.alumnos_bd
 import models.inscripciones_bd
 
+
+
+
 # Crea las tablas que corresponden a las entidades definidas en los modelos de BD.
 database.create_all()
 
