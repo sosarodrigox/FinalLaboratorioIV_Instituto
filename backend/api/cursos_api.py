@@ -9,13 +9,13 @@ cursos_api = APIRouter(prefix='/cursos', tags=['Cursos'])
 # Repos:
 cursos_repo = CursosRepositorio()
 
-
 # Endpoint para traer lista de CursosSinId:
+
+
 @cursos_api.get('', response_model=list[CursoSinId])
 # Inyección de dependencias: La variable db existe en el ambito de este método y luego de cierra.
 def get_all(db=Depends(get_db)):
-    result = cursos_repo.get_all(db)
-    return result
+    return cursos_repo.get_all(db)
 
 # Enpoint para traer por Id:
 

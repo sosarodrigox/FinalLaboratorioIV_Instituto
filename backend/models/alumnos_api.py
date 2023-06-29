@@ -1,9 +1,7 @@
 from pydantic import BaseModel
 
-# Modelo para crear:
 
-
-class ProfesorSinId(BaseModel):
+class AlumnoSinId(BaseModel):
     nombre: str
     apellido: str
     dni: str
@@ -13,8 +11,6 @@ class ProfesorSinId(BaseModel):
     class Config:
         orm_mode = True
 
-# Modelo completo:
 
-
-class ProfesorApi(ProfesorSinId):
+class AlumnoApi(AlumnoSinId):
     id: int

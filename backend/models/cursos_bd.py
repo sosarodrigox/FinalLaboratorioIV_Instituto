@@ -24,7 +24,7 @@ class CursoBd(BaseBd):
     profesor_auxiliar = relationship("ProfesorBd", foreign_keys=[
                                      profesor_auxiliar_id], back_populates="cursos_auxiliar")
     # Alumnos
-    # alumnos = relationship("Alumno", secondary="inscripciones")
+    alumnos = relationship("InscripcionBd", back_populates='curso')
 
     def __repr__(self):
         return f"<Curso(nombre={self.nombre}, fecha_inicio={self.fecha_inicio} - fecha_fin={self.fecha_fin})>"

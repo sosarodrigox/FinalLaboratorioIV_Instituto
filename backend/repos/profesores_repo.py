@@ -28,6 +28,7 @@ class ProfesoresRepositorio():
         for k, v in datos.dict(exclude_unset=True).items():
             setattr(entidad, k, v)
         db.commit()
+        return entidad
 
     def delete(self, id: int, db: Session):
         entidad: ProfesorBd = self.get_by_id(id, db)
