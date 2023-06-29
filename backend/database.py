@@ -6,7 +6,8 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 # Sintaxis en POSTGRES: "postgresql+psycopg2://user:password@host:port/dbname[?key=value&key=value...]"
 
 
-SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://postgres:admin@localhost/instituto"
+SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://postgres:1234@localhost/instituto"
+# SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://postgres:admin@localhost/instituto"
 
 # Motor de conexión:
 engine = create_engine(SQLALCHEMY_DATABASE_URL, echo=True)
