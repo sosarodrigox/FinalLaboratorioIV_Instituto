@@ -18,9 +18,9 @@ class CursoSinId(BaseModel):
     class Config:  # Al mapear una instancia de la BD no busca un diccionario si no que trata de acceder a cada elemento con la instancia.atributo
         orm_mode = True
 
-#Listado de cursos
+#Listado de cursos con obj profesor
 class CursoList(CursoSinId):
-    profesor_titular: ProfesorApi
+    profesor: ProfesorApi
      
 #Modelo completo:
 class CursoApi(CursoSinId):

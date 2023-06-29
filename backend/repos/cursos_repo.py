@@ -1,7 +1,7 @@
 # from datetime import date
+# from models.cursos_api import CursoApi (Importado para hardcode de prueba)
 from models.cursos_api import CursoSinId
 from models.cursos_bd import CursoBd
-# from models.cursos_api import CursoApi (Importado para hardcode de prueba)
 from sqlalchemy.orm import Session
 from sqlalchemy import select
 

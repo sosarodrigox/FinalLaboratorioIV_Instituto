@@ -1,3 +1,4 @@
+from api.profesores_api import profesores_api
 import database
 from fastapi import FastAPI
 import uvicorn
@@ -13,6 +14,7 @@ app = FastAPI()
 
 # Rutas endopoints
 app.include_router(cursos_api)
+app.include_router(profesores_api)
 
 
 if __name__ == '__main__':

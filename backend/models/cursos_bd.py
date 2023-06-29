@@ -20,9 +20,9 @@ class CursoBd(BaseBd):
     # Relationships (Atributos de navegación):
     # Profesores
     profesor_titular = relationship("ProfesorBd", foreign_keys=[
-                                    profesor_titular_id], back_populates="cursos_asignados")
+                                    profesor_titular_id], back_populates="cursos_titular")
     profesor_auxiliar = relationship("ProfesorBd", foreign_keys=[
-                                     profesor_auxiliar_id], back_populates="cursos_auxiliares")
+                                     profesor_auxiliar_id], back_populates="cursos_auxiliar")
     # Alumnos
     # alumnos = relationship("Alumno", secondary="inscripciones")
 

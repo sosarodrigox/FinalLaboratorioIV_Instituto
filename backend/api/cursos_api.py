@@ -4,7 +4,7 @@ from models.cursos_api import CursoApi, CursoSinId
 from repos.cursos_repo import CursosRepositorio
 
 # Router:
-cursos_api = APIRouter(prefix='/cursos')
+cursos_api = APIRouter(prefix='/cursos', tags=['Cursos'])
 
 # Repos:
 cursos_repo = CursosRepositorio()
