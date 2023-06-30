@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 console.log(data)
 
-export default function Curso() {
+export default function Cursos() {
   const [cursos, setCursos] = useState([]);
 
   useEffect(() => {
