@@ -30,10 +30,22 @@ function CursosLista() {
   const modificarCurso = (id) => {
     navegar("" + id); /* acá va el id en string */
   };
-  
-  /*   const eliminarCurso = () => {
-    
-  } */
+
+  const eliminarCurso = async (id) => {
+    try {
+
+      const confirmarEliminar = window.confirm("¿Estás seguro de querer eliminar este curso?");
+      if (confirmarEliminar) {
+
+        await axios.delete(`http://localhost:8000/cursos/${id}`);
+        setCursos(cursos.filter((curso) => curso.id !== id));
+
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -63,8 +75,7 @@ function CursosLista() {
                 <td>{curso.fecha_fin}</td>
                 <td>{curso.profesor_titular.nombre}</td>
 
-                {
-                curso.profesor_auxiliar ? (
+                {curso.profesor_auxiliar ? (
                   <td>{curso.profesor_auxiliar.nombre}</td>
                 ) : (
                   <td>Sin auxiliar</td>
@@ -81,7 +92,7 @@ function CursosLista() {
                 <td>
                   <button
                     className="btn btn-danger"
-                    /* onClick={() => eliminarCurso(curso.id)} */
+                    onClick={() => eliminarCurso(curso.id)}
                   >
                     Eliminar
                   </button>
