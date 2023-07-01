@@ -8,29 +8,39 @@ function CursoForm() {
   const params = useParams();
   const navegar = useNavigate();
 
+  const curso = {
+    id: -1,
+    nombre: "",
+    cantidad_alumnos: null,
+    fecha_inicio: null,
+    fecha_fin: null,
+    profesor_titular_id: null,
+    profesor_auxiliar_id: null,
+  }
+
   useEffect(() => {
     if (params.id < 0) {
-      console.log(params)
-      setDatos({ id: -1, nombre: "" });
+      /* setDatos({ id: -1, nombre: "", cantidad_}); */
+      console.log(curso)
+      setDatos(curso);
     } else {
+      getCurso(params.id);
     }
-    getCurso(params.id);
-  }, []);
+    
+  }, [params.id]);
 
   const getCurso = async (id) => {
     try {
-      let resultado = await axios.get(
-        `http://localhost:8000/cursos/${params.id}`
-      );
+      let resultado = await axios.get(`http://localhost:8000/cursos/${id}`);
       /* console.log(resultado); */
       setDatos(resultado.data);
     } catch (error) {
       console.log(error);
-      setDatos({ id: -1 });
+      setDatos(curso);
     }
   };
 
-/*   const mostrarCurso = () => {
+  /*   const mostrarCurso = () => {
     <>
       Datos del curso: {params.id}
       <div>Nombre: {datos.nombre}</div>
@@ -38,22 +48,29 @@ function CursoForm() {
   }; */
 
   const handleChange = (e) => {
-    console.log(e);
+    /* console.log(e); */
     setDatos({ ...datos, [e.target.name]: e.target.value });
   };
 
   const grabarCambios = async () => {
     try {
-      let resultado = await axios.put(
-        `http://localhost:8000/cursos/${datos.id}`,
-        datos
-      );
-      /* console.log(resultado); */
-      navegar(-1);
+      if (datos.id == -1) {
+        let resultado = await axios.post(`http://localhost:8000/cursos/`, datos);
+        /* Aca puedo tomar el resultado que me da await y ponerlo en el estado y seguir mostrandolo en el formulario */
+        console.log(resultado);
+      } else {
+        let resultado = await axios.put(`http://localhost:8000/cursos/${datos.id}`, datos);
+        /* console.log(resultado); */
+      }
+      navegar(-1); /* vuelvo a la pagina del listado de cursos, hace un get a todos los cursos actualizados*/
     } catch (error) {
-      console.log(err);
+      console.log(error);
     }
   };
+
+
+
+
 
   return (
     <div className="text-start col-6 offset-3 border p-3">
@@ -94,22 +111,66 @@ function CursoForm() {
           type="text"
           className="form-control"
           id="edCantAlumnos"
-          name="cant-alumnos"
-          value={datos.cantAlumnos}
+          name="cantidad_alumnos"
+          value={datos.cantidad_alumnos}
           onChange={handleChange}
         />
       </div>
 
       <div className="mb-3 col-2">
-        <label htmlFor="edCantAlumnos" className="form-label">
+        <label htmlFor="edFechaInicio" className="form-label">
           Fecha de inicio
         </label>
         <input
           type="text"
           className="form-control"
-          id="cantAlumnos"
-          name="cant-alumnos"
-          value={datos.cantAlumnnos}
+          id="edFechaInicio"
+          name="fecha_inicio"
+          value={datos.fecha_inicio}
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="mb-3 col-2">
+        <label htmlFor="edFechaFin" className="form-label">
+          Fecha de fin
+        </label>
+        <input
+          type="text"
+          className="form-control"
+          id="edFechaFin"
+          name="fecha_fin"
+          value={datos.fecha_fin}
+          onChange={handleChange}
+        />
+      </div>
+
+
+      <div className="mb-3 col-2">
+        <label htmlFor="edProfeTitular" className="form-label">
+          Profesor titular
+        </label>
+        <input
+          type="text"
+          className="form-control"
+          id="edProfeTitular"
+          name="profesor_titular_id"
+          value={datos.profesor_titular_id}
+          onChange={handleChange}
+        />
+      </div>
+
+
+      <div className="mb-3 col-2">
+        <label htmlFor="edAuxiliar" className="form-label">
+          Profesor auxiliar
+        </label>
+        <input
+          type="text"
+          className="form-control"
+          id="edAuxiliar"
+          name="profesor_auxiliar_id"
+          value={datos.profesor_auxiliar_id}
           onChange={handleChange}
         />
       </div>
@@ -123,7 +184,6 @@ function CursoForm() {
           Cancelar
         </button>
       </div>
-
     </div>
 
     /* {datos.id >=0 ? mostrarCurso() : "No hay datos"} */
