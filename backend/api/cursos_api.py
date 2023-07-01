@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from database import get_db
-from models.cursos_api import CursoApi, CursoSinId
+from models.cursos_api import CursoApi, CursoSinId, CursoList
 from repos.cursos_repo import CursosRepositorio
 
 # Router:
@@ -12,7 +12,7 @@ cursos_repo = CursosRepositorio()
 # Endpoint para traer lista de CursosSinId:
 
 
-@cursos_api.get('', response_model=list[CursoApi])
+@cursos_api.get('', response_model=list[CursoList])
 # Inyección de dependencias: La variable db existe en el ambito de este método y luego de cierra.
 def get_all(db=Depends(get_db)):
     return cursos_repo.get_all(db)

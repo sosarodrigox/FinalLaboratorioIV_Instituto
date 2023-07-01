@@ -19,7 +19,8 @@ class CursoSinId(BaseModel):
 
 #Listado de cursos con obj profesor
 class CursoList(CursoSinId):
-    profesor: ProfesorApi
+    profesor_titular: ProfesorApi
+    profesor_auxiliar: ProfesorApi = None
      
 #Modelo completo:
 class CursoApi(CursoSinId):
