@@ -25,6 +25,7 @@ export default function Home() {
           </div>
         </div>
       </nav>
+      {/* permitir que otros componentes se muestren dentro de él cuando se activan rutas anidadas */}
       <Outlet></Outlet>
     </>
   );
