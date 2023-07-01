@@ -15,9 +15,9 @@ Los cursos pueden tener una cantidad N de alumnos (N depende del curso) y tienen
 
 Consultas:
 
-    * Lista de cursos
-    * Detalle de los alumnos inscriptos en un curso particular
-    * Cursos de un profesor
+    * Lista de cursos (Listo BackEnd)
+    * Detalle de los alumnos inscriptos en un curso particular (Listo BackEnd)
+    * Cursos de un profesor (Haciendo Backend)
     * Cursos de un alumno
     * Asistencia de un alumno a un curso en una fecha
 
