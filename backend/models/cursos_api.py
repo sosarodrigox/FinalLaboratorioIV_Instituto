@@ -18,9 +18,17 @@ class CursoSinId(BaseModel):
         orm_mode = True
 
 #Listado de cursos con obj profesor
-class CursoList(CursoSinId):
+class CursoList(BaseModel):
+    id: int
+    nombre: str
+    cantidad_alumnos: int
+    fecha_inicio: date
+    fecha_fin: date
     profesor_titular: ProfesorApi
     profesor_auxiliar: ProfesorApi = None
+
+    class Config:
+        orm_mode = True
      
 #Modelo completo:
 class CursoApi(CursoSinId):
