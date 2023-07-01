@@ -12,7 +12,6 @@ class CursoSinId(BaseModel):
     # TODO Ver si el prof titulay y el auxiliar son objetos completos o solo su id.
     profesor_titular_id: int
     profesor_auxiliar_id: int = None
-    
 
     # Clase necesaria para el mapeo SQL Alchemy -> FastAPI
     class Config:  # Al mapear una instancia de la BD no busca un diccionario si no que trata de acceder a cada elemento con la instancia.atributo

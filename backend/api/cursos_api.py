@@ -12,7 +12,7 @@ cursos_repo = CursosRepositorio()
 # Endpoint para traer lista de CursosSinId:
 
 
-@cursos_api.get('', response_model=list[CursoSinId])
+@cursos_api.get('', response_model=list[CursoApi])
 # Inyección de dependencias: La variable db existe en el ambito de este método y luego de cierra.
 def get_all(db=Depends(get_db)):
     return cursos_repo.get_all(db)
