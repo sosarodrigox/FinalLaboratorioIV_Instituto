@@ -19,7 +19,7 @@ Consultas:
     * Detalle de los alumnos inscriptos en un curso particular (Listo BackEnd)
     * Cursos de un profesor (Listo Backend) **TODO: Ver RM**
     * Cursos de un alumno (Listo Backend)
-    * Asistencia de un alumno a un curso en una fecha
+    * Asistencia de un alumno a un curso en una fecha (Haciendo Backend)
 
 
 Acorde a lo que dimos en clase, las tecnologías a usar son las siguientes:

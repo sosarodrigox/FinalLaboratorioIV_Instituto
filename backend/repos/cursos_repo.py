@@ -1,5 +1,6 @@
 # from datetime import date
 # from models.cursos_api import CursoApi (Importado para hardcode de prueba)
+from models.inscripciones_bd import InscripcionBd
 from models.cursos_api import CursoSinId
 from models.cursos_bd import CursoBd
 from sqlalchemy.orm import Session
@@ -43,6 +44,13 @@ class CursosRepositorio():
         entidad: CursoBd = self.get_by_id(id, db)
         if entidad is None:
             return None
+        # Traigo las inscripciones asociadas al curso (Problema de entidad referencial a inscripciones)
+        inscripciones = db.query(InscripcionBd).filter(
+            InscripcionBd.id_curso == id).all()
+        # Eliminar las inscripciones
+        for inscripcion in inscripciones:
+            db.delete(inscripcion)
+
         db.delete(entidad)
         db.commit()
         return entidad
