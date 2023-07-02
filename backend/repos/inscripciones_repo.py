@@ -16,6 +16,13 @@ class InscripcionesRepositorio():
             return None
         return alumnos_curso
 
+    def get_cursos_alumno(self, id_alumno: int, db: Session):
+        alumno_cursos = db.query(CursoBd).join(InscripcionBd).filter(
+            InscripcionBd.id_alumno == id_alumno).all()
+        if not alumno_cursos:
+            return None
+        return alumno_cursos
+
     def get_all(self, db: Session):
         return db.execute(select(InscripcionBd).order_by(
             InscripcionBd.fecha_inicio_inscripcion)).scalars().all()

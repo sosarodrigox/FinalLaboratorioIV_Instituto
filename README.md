@@ -17,8 +17,8 @@ Consultas:
 
     * Lista de cursos (Listo BackEnd)
     * Detalle de los alumnos inscriptos en un curso particular (Listo BackEnd)
-    * Cursos de un profesor (Haciendo Backend)
-    * Cursos de un alumno
+    * Cursos de un profesor (Listo Backend) **TODO: Ver RM**
+    * Cursos de un alumno (Listo Backend)
     * Asistencia de un alumno a un curso en una fecha
 
 
