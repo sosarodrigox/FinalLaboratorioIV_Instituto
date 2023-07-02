@@ -1,9 +1,10 @@
 # from datetime import date
 # from models.cursos_api import CursoApi (Importado para hardcode de prueba)
+from models.profesores_bd import ProfesorBd
 from models.cursos_api import CursoSinId
 from models.cursos_bd import CursoBd
 from sqlalchemy.orm import Session
-from sqlalchemy import select
+from sqlalchemy import or_, select
 
 
 class CursosRepositorio():
@@ -15,6 +16,14 @@ class CursosRepositorio():
     def get_by_id(self, id: int, db: Session):
         result = db.execute(select(CursoBd).where(CursoBd.id == id)).scalar()
         return result
+
+    def get_cursos_profesor(self, id_profesor: int, db: Session):
+        return db.query(CursoBd).filter(
+            or_(
+                CursoBd.profesor_titular_id == id_profesor,
+                CursoBd.profesor_auxiliar_id == id_profesor
+            )
+        ).all()
 
     def create(self, db: Session, datos: CursoSinId):
         nueva_entidad_bd: CursoBd = CursoBd(**datos.dict())

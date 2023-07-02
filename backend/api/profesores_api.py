@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends, HTTPException
-from models.cursos_api import CursoSinId
 from database import get_db
 from models.profesores_api import ProfesorApi, ProfesorSinId
 from repos.profesores_repo import ProfesoresRepositorio
@@ -19,23 +18,9 @@ def get_all(db=Depends(get_db)):
     print(result)
     return result
 
-# Endpoint para traer cursos de un profesor
-
-
-@profesores_api.get('/cursos/{id}', response_model=CursoSinId)
-def get_cursos_profesor(id: int, db=Depends(get_db)):
-    # Primero verifico que el profesor exista:
-    if profesores_repo.get_by_id(id, db) is None:
-        raise HTTPException(status_code=404, detail='El profesor no existe')
-    else:
-        result = profesores_repo.get_cursos_profesor(id, db)
-        if result is None:
-            raise HTTPException(
-                status_code=404, detail='El profesro no tiene cursos asignados')
-        return result
-
-
 # Enpoint para traer por Id:
+
+
 @profesores_api.get('/ {id}', response_model=ProfesorApi)
 def get_by_id(id: int, db=Depends(get_db)):
     result = profesores_repo.get_by_id(id, db)

@@ -1,13 +1,15 @@
 from fastapi import APIRouter, Depends, HTTPException
 from database import get_db
-from models.cursos_api import CursoApi, CursoSinId, CursoList
+from models.cursos_api import CursoApi, CursoSinId, CursoList, CursoProfesor
 from repos.cursos_repo import CursosRepositorio
+from repos.profesores_repo import ProfesoresRepositorio
 
 # Router:
 cursos_api = APIRouter(prefix='/cursos', tags=['Cursos'])
 
 # Repos:
 cursos_repo = CursosRepositorio()
+profesor_repo = ProfesoresRepositorio()
 
 # Endpoint para traer lista de CursosSinId:
 
@@ -26,6 +28,21 @@ def get_by_id(id: int, db=Depends(get_db)):
     # Si el result es None levanta una excepción con código de error.
     if result is None:
         raise HTTPException(status_code=404, detail='Curso no encontrado')
+    return result
+
+# Enpoint para traer por cursos de un profesor:
+# TODO: VER RESPONSE MODEL @cursos_api.get('/profesor/{id_profesor}', response_model=CursoApi)
+
+
+@cursos_api.get('/profesor/{id_profesor}')
+def get_cursos_profesor(id_profesor: int, db=Depends(get_db)):
+    if profesor_repo.get_by_id(id_profesor, db) is None:
+        raise HTTPException(status_code=404, detail='El profesor no existe')
+    else:
+        result = cursos_repo.get_cursos_profesor(id_profesor, db)
+        if result is None:
+            raise HTTPException(
+                status_code=404, detail='El profesor no tiene cursos asignados')
     return result
 
 # Endpoint para Crear Cursos. Viene sin Id y lo genera la BD, devuelve con Id:

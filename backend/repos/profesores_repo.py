@@ -1,5 +1,4 @@
 # from datetime import date
-from models.cursos_bd import CursoBd
 from models.profesores_api import ProfesorSinId
 from models.profesores_bd import ProfesorBd
 from sqlalchemy.orm import Session, contains_eager
@@ -10,14 +9,6 @@ class ProfesoresRepositorio():
 
     def get_all(self, db: Session):
         return db.execute(select(ProfesorBd).order_by(ProfesorBd.apellido)).scalars().all()
-
-    def get_cursos_profesor(self, id: int, db: Session):
-        cursos_profesor = db.query(CursoBd).join(ProfesorBd).filter(
-            ProfesorBd.id
-        )
-        if len(cursos_profesor) == 0:
-            return None
-        return cursos_profesor
 
     def get_by_id(self, id: int, db: Session):
         result = db.execute(select(ProfesorBd).where(
