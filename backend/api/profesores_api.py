@@ -21,7 +21,7 @@ def get_all(db=Depends(get_db)):
 # Enpoint para traer por Id:
 
 
-@profesores_api.get('/ {id}', response_model=ProfesorApi)
+@profesores_api.get('/{id}', response_model=ProfesorApi)
 def get_by_id(id: int, db=Depends(get_db)):
     result = profesores_repo.get_by_id(id, db)
     # Si el result es None levanta una excepción con código de error.
