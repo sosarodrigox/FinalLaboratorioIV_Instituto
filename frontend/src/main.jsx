@@ -7,6 +7,8 @@ import Datos from './componentes/datos.jsx';
 import Consultas from './componentes/consultas.jsx';
 import CursosLista from './componentes/cursos/cursos-lista.jsx'
 import CursoForm from "./componentes/cursos/curso-form.jsx";
+import ProfesoresLista from "./componentes/profesores/profesores-lista.jsx";
+import ProfesorForm from "./componentes/profesores/profesor-form.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -14,8 +16,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Routes>
         <Route path="/" element={<Home />}>
           <Route path="datos" element={<Datos />}>
-            <Route path="cursos" element={<CursosLista/>}></Route>
-            <Route path="cursos/:id" element={<CursoForm/>}></Route>
+            <Route path="cursos" element={<CursosLista />}></Route>
+            <Route path="cursos/:id" element={<CursoForm />}></Route>
+            <Route path="profesores" element={<ProfesoresLista />}></Route>
+            <Route path="profesores/:id" element={<ProfesorForm />}></Route>
           </Route>
           <Route path="consultas" element={<Consultas />} />
         </Route>

@@ -49,7 +49,6 @@ function ProfesoresLista() {
                 <table className="table">
                     <thead>
                         <tr>
-                            <th>Id</th>
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>DNI</th>
@@ -58,9 +57,6 @@ function ProfesoresLista() {
                     <tbody>
                         {profesoresOrdenados.map((profesor, idx) => (
                             <tr key={profesor.id}>
-                                <td>
-                                    <Link to={"" + profesor.id}>{profesor.id}</Link>
-                                </td>
                                 <td>{profesor.nombre}</td>
                                 <td>{profesor.apellido}</td>
                                 <td>{profesor.dni}</td>
