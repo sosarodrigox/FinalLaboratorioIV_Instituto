@@ -9,6 +9,8 @@ import CursosLista from './componentes/cursos/cursos-lista.jsx'
 import CursoForm from "./componentes/cursos/curso-form.jsx";
 import ProfesoresLista from "./componentes/profesores/profesores-lista.jsx";
 import ProfesorForm from "./componentes/profesores/profesor-form.jsx";
+import AlumnosLista from "./componentes/alumnos/alumnos-lista.jsx";
+import AlumnoForm from "./componentes/alumnos/alumno-form.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -20,6 +22,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="cursos/:id" element={<CursoForm />}></Route>
             <Route path="profesores" element={<ProfesoresLista />}></Route>
             <Route path="profesores/:id" element={<ProfesorForm />}></Route>
+            <Route path="alumnos" element={<AlumnosLista />}></Route>
+            <Route path="alumnos/:id" element={<AlumnoForm />}></Route>
           </Route>
           <Route path="consultas" element={<Consultas />} />
         </Route>

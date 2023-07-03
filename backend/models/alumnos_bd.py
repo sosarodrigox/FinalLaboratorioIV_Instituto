@@ -13,7 +13,8 @@ class AlumnoBd(BaseBd):
     # Lazy Loading
     # Relationships (Atributos de navegación):
     # Cursos en los que está inscripto
-    curso = relationship("InscripcionBd", back_populates='alumno')
+    curso = relationship(
+        "InscripcionBd", cascade="all, delete", passive_deletes=True, back_populates='alumno')
     # Asistencias a cursos:
     asistencias = relationship(
         "AsistenciaBd", cascade="all, delete", back_populates="alumno")

@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import select
+from models.inscripciones_bd import InscripcionBd
 from models.alumnos_api import AlumnoSinId
 from models.alumnos_bd import AlumnoBd
 
@@ -33,6 +34,8 @@ class AlumnosRepositorio():
         entidad: AlumnoBd = self.get_by_id(id, db)
         if entidad is None:
             return None
+        # Eliminar las inscripciones asociadas al alumno
+        db.query(InscripcionBd).filter(InscripcionBd.id_alumno == id).delete()
         db.delete(entidad)
         db.commit()
         return entidad

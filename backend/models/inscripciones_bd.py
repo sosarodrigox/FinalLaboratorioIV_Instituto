@@ -16,8 +16,10 @@ class InscripcionBd(BaseBd):
     id_curso = Column(Integer, ForeignKey('cursos.id'), primary_key=True)
     fecha = Column(DateTime)
 
-    alumno = relationship('AlumnoBd', back_populates='curso')
-    curso = relationship('CursoBd', back_populates='alumnos')
+    alumno = relationship(
+        'AlumnoBd', passive_deletes=True, single_parent=True, back_populates='curso')
+    curso = relationship('CursoBd', cascade="all, delete",
+                         back_populates='alumnos')
 
     def __repr__(self):
         return f'Inscripcion de {self.alumno.nombre} al curso {self.curso.nombre}'

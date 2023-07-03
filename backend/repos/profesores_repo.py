@@ -1,4 +1,5 @@
 # from datetime import date
+from models.cursos_bd import CursoBd
 from models.profesores_api import ProfesorSinId
 from models.profesores_bd import ProfesorBd
 from sqlalchemy.orm import Session, contains_eager
@@ -34,6 +35,13 @@ class ProfesoresRepositorio():
         entidad: ProfesorBd = self.get_by_id(id, db)
         if entidad is None:
             return None
+
+        # TODO: Actualizar los cursos que tienen asignado al profesor como profesor titular
+        # o avisar que no se puede eliminar el profesro titular de un curso (Ver atributo de la BD)
+        # cursos = db.query(CursoBd).filter(CursoBd.profesor_titular_id == id).all()
+        # for curso in cursos:
+        #     curso.profesor_titular_id = None
+
         db.delete(entidad)
         db.commit()
         return entidad

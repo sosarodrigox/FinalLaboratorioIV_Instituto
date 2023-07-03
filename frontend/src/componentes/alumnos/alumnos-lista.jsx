@@ -2,49 +2,47 @@ import React, { useState, useEffect } from "react";
 import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-function ProfesoresLista() {
-    const [profesores, setProfesores] = useState([]);
+function AlumnosLista() {
+    const [alumnos, setAlumnos] = useState([]);
     const navegar = useNavigate();
 
     useEffect(() => {
         getDatos();
-        console.log(profesores);
+        console.log(alumnos);
     }, []);
 
     const getDatos = async () => {
-        let resultado = await axios.get("http://localhost:8000/profesores");
+        let resultado = await axios.get("http://localhost:8000/alumnos");
         console.log(resultado);
-        setProfesores(resultado.data);
+        setAlumnos(resultado.data);
     };
 
-    const agregarProfesor = () => {
+    const agregarAlumno = () => {
         navegar("-1");
     };
 
-    const modificarProfesor = (id) => {
+    const modificarAlumno = (id) => {
         navegar("" + id);
     };
 
-    const eliminarProfesor = async (id) => {
+    const eliminarAlumno = async (id) => {
         try {
             const confirmarEliminar = window.confirm(
-                "¿Estás seguro de querer eliminar este profesor?"
+                "¿Estás seguro de querer eliminar este alumno?"
             );
             if (confirmarEliminar) {
-                await axios.delete(`http://localhost:8000/profesores/${id}`);
-                setProfesores(profesores.filter((profesor) => profesor.id !== id));
+                await axios.delete(`http://localhost:8000/alumnos/${id}`);
+                setAlumnos(alumnos.filter((alumno) => alumno.id !== id));
             }
         } catch (error) {
             console.log(error);
         }
     };
 
-    const profesoresOrdenados = profesores.sort((a, b) => a.id - b.id);
-
     return (
         <>
             <div className="container-fluid">
-                <h1 className="mt-3">Profesores</h1>
+                <h1 className="mt-3">Alumnos</h1>
                 <table className="table">
                     <thead>
                         <tr>
@@ -54,16 +52,16 @@ function ProfesoresLista() {
                         </tr>
                     </thead>
                     <tbody>
-                        {profesoresOrdenados.map((profesor, idx) => (
-                            <tr key={profesor.id}>
-                                <td>{profesor.nombre}</td>
-                                <td>{profesor.apellido}</td>
-                                <td>{profesor.dni}</td>
+                        {alumnos.map((alumno, idx) => (
+                            <tr key={alumno.id}>
+                                <td>{alumno.nombre}</td>
+                                <td>{alumno.apellido}</td>
+                                <td>{alumno.dni}</td>
 
                                 <td>
                                     <button
                                         className="btn btn-primary"
-                                        onClick={() => modificarProfesor(profesor.id)}
+                                        onClick={() => modificarAlumno(alumno.id)}
                                     >
                                         Modificar
                                     </button>
@@ -71,7 +69,7 @@ function ProfesoresLista() {
                                 <td>
                                     <button
                                         className="btn btn-danger"
-                                        onClick={() => eliminarProfesor(profesor.id)}
+                                        onClick={() => eliminarAlumno(alumno.id)}
                                     >
                                         Eliminar
                                     </button>
@@ -80,12 +78,12 @@ function ProfesoresLista() {
                         ))}
                     </tbody>
                 </table>
-                <button className="btn btn-primary" onClick={agregarProfesor}>
-                    Agregar Profesor
+                <button className="btn btn-primary" onClick={agregarAlumno}>
+                    Agregar Alumno
                 </button>
             </div>
         </>
     );
 }
 
-export default ProfesoresLista;
+export default AlumnosLista;

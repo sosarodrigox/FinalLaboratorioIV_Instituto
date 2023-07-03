@@ -15,7 +15,7 @@ function CursosLista() {
   useEffect(() => {
     getDatos();
     console.log(cursos);
-  }, []); 
+  }, []);
 
   const getDatos = async () => {
     let resultado = await axios.get("http://localhost:8000/cursos");
@@ -55,7 +55,7 @@ function CursosLista() {
         <table className="table">
           <thead>
             <tr>
-{/*               <th>Id</th> */}
+              {/*               <th>Id</th> */}
               <th>Nombre</th>
               <th>Cantidad de alumnos</th>
               <th>Fecha inicio</th>
@@ -67,17 +67,17 @@ function CursosLista() {
           <tbody>
             {cursos.map((curso, idx) => (
               <tr key={curso.id}>
-{/*                 <td>
+                {/*                 <td>
                   <Link to={"" + curso.id}>{curso.id}</Link>
                 </td> */}
                 <td>{curso.nombre}</td>
                 <td>{curso.cantidad_alumnos}</td>
                 <td>{curso.fecha_inicio}</td>
                 <td>{curso.fecha_fin}</td>
-                <td>{curso.profesor_titular.nombre}</td>
+                <td>{curso.profesor_titular.apellido}</td>
 
                 {curso.profesor_auxiliar ? (
-                  <td>{curso.profesor_auxiliar.nombre}</td>
+                  <td>{curso.profesor_auxiliar.apellido}</td>
                 ) : (
                   <td>Sin auxiliar</td>
                 )}
