@@ -14,8 +14,7 @@ class InscripcionBd(BaseBd):
 
     id_alumno = Column(Integer, ForeignKey('alumnos.id'), primary_key=True)
     id_curso = Column(Integer, ForeignKey('cursos.id'), primary_key=True)
-    fecha_inicio_inscripcion = Column(DateTime)
-    fecha_fin_inscripcion = Column(DateTime)
+    fecha = Column(DateTime)
 
     alumno = relationship('AlumnoBd', back_populates='curso')
     curso = relationship('CursoBd', back_populates='alumnos')

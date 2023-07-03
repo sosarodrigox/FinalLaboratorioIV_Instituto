@@ -5,8 +5,7 @@ from datetime import date
 class InscripcionSinId(BaseModel):
     id_alumno: int
     id_curso: int
-    fecha_inicio_inscripcion: date
-    fecha_fin_inscripcion: date
+    fecha: date
 
     class Config:
         orm_mode = True

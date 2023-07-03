@@ -63,5 +63,9 @@ def get_by_id(id_alumno: int, id_curso: int, db=Depends(get_db)):
 @inscripciones_api.post('', response_model=InscripcionApi, status_code=201)
 def post(datos: InscripcionSinId, db=Depends(get_db)):
     result = inscripciones_repo.create(db, datos)
-    print(result)
+    if result == "CURSO_COMPLETO":
+        raise HTTPException(status_code=400, detail='Curso completo')
+    elif result == "CURSO_CERRADO":
+        raise HTTPException(
+            status_code=400, detail='El curso no está abierto actualmente')
     return result

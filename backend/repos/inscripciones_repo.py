@@ -1,3 +1,4 @@
+from datetime import datetime, time
 from sqlalchemy import and_, select
 from sqlalchemy.orm import Session
 from models.alumnos_bd import AlumnoBd
@@ -25,7 +26,7 @@ class InscripcionesRepositorio():
 
     def get_all(self, db: Session):
         return db.execute(select(InscripcionBd).order_by(
-            InscripcionBd.fecha_inicio_inscripcion)).scalars().all()
+            InscripcionBd.fecha)).scalars().all()
 
     def get_by_id(self, id_alumno: int, id_curso: int, db: Session):
         result = db.execute(select(InscripcionBd).where(and_(
@@ -36,6 +37,18 @@ class InscripcionesRepositorio():
 
     def create(self, db: Session, datos: InscripcionSinId):
         nueva_entidad_bd: InscripcionBd = InscripcionBd(**datos.dict())
+
+        # Verificar la cantidad de alumnos inscritos en el curso
+        curso: CursoBd = db.query(CursoBd).get(datos.id_curso)
+        if curso and len(curso.alumnos) >= curso.cantidad_alumnos:
+            return "CURSO_COMPLETO"
+
+        # Verificar las fechas de inicio y fin de la inscripción
+        fecha_inscripcion = datetime.combine(datos.fecha, time())
+        if curso and (fecha_inscripcion < curso.fecha_inicio or fecha_inscripcion > curso.fecha_fin):
+            return "CURSO_CERRADO"
+
+        # Si se valida lo carga a la bd:
         db.add(nueva_entidad_bd)
         db.commit()
         return nueva_entidad_bd

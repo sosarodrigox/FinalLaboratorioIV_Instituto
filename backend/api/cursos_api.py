@@ -50,6 +50,16 @@ def get_cursos_profesor(id_profesor: int, db=Depends(get_db)):
 
 @cursos_api.post('', response_model=CursoApi, status_code=201)
 def post(datos: CursoSinId, db=Depends(get_db)):
+    # Verifica que la fecha de inicio no sea la misma que la fecha de fin
+    if datos.fecha_inicio == datos.fecha_fin:
+        raise HTTPException(
+            status_code=400, detail='La fecha de inicio no puede ser igual a la fecha de fin')
+     # Verifica que la fecha de fin no sea anterior a la fecha de inicio
+    if datos.fecha_fin < datos.fecha_inicio:
+        raise HTTPException(
+            status_code=400, detail='La fecha de fin no puede ser anterior a la fecha de inicio')
+
+    # Si valida, crea:
     result = cursos_repo.create(db, datos)
     return result
 

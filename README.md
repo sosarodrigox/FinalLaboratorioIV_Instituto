@@ -8,7 +8,6 @@ Trabajo Práctico Final para la materia Laboratorio de Computación IV - Aplicac
 ## Consigna:
 
 ### Instituto.
-
 Realice un sistema que permita llevar la administración de un Instituto de Enseñanza. Debe permitir la administración de Profesores y alumnos, y agrupar estos en cursos. 
 
 Los cursos pueden tener una cantidad N de alumnos (N depende del curso) y tienen un nombre, una fecha de inicio y otra de fin. Cada curso debe tener un profesor asignado y puede tener un segundo profesor como auxiliar.Se debe permitir ingresar y consultar la planilla de asistencia de cada curso. Un profesor puede estar asignado a varios cursos. Un alumno puede estar inscripto en varios cursos, pero no dos veces en el mismo (validar). La inscripción debe tener una fecha de inicio y fin (por defecto, las mismas que el curso al que se inscribe).
@@ -19,7 +18,7 @@ Consultas:
     * Detalle de los alumnos inscriptos en un curso particular (Listo BackEnd)
     * Cursos de un profesor (Listo Backend) **TODO: Ver RM**
     * Cursos de un alumno (Listo Backend)
-    * Asistencia de un alumno a un curso en una fecha (Haciendo Backend)
+    * Asistencia de un alumno a un curso en una fecha (Listo Backend)
 
 
 Acorde a lo que dimos en clase, las tecnologías a usar son las siguientes:
