@@ -11,11 +11,11 @@ function CursoForm() {
   const curso = {
     id: -1,
     nombre: "",
-    cantidad_alumnos: null,
-    fecha_inicio: null,
-    fecha_fin: null,
-    profesor_titular_id: null,
-    profesor_auxiliar_id: null,
+    cantidad_alumnos: "",
+    fecha_inicio: "",
+    fecha_fin: "",
+    profesor_titular_id: "",
+    profesor_auxiliar_id: "",
   }
 
   useEffect(() => {
@@ -67,10 +67,6 @@ function CursoForm() {
       console.log(error);
     }
   };
-
-
-
-
 
   return (
     <div className="text-start col-6 offset-3 border p-3">

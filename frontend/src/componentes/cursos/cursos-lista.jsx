@@ -33,19 +33,20 @@ function CursosLista() {
 
   const eliminarCurso = async (id) => {
     try {
-
-      const confirmarEliminar = window.confirm("¿Estás seguro de querer eliminar este curso?");
+      const confirmarEliminar = window.confirm(
+        "¿Estás seguro de querer eliminar este curso?"
+      );
       if (confirmarEliminar) {
-
         await axios.delete(`http://localhost:8000/cursos/${id}`);
         setCursos(cursos.filter((curso) => curso.id !== id));
-
       }
-
     } catch (error) {
       console.log(error);
     }
   };
+
+  // Ordenar la lista de cursos por ID de manera ascendente
+  const cursosOrdenados = cursos.sort((a, b) => a.id - b.id);
 
   return (
     <>
@@ -64,7 +65,7 @@ function CursosLista() {
             </tr>
           </thead>
           <tbody>
-            {cursos.map((curso, idx) => (
+            {cursosOrdenados.map((curso, idx) => (
               <tr key={curso.id}>
                 <td>
                   <Link to={"" + curso.id}>{curso.id}</Link>
