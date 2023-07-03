@@ -11,7 +11,7 @@ profesores_repo = ProfesoresRepositorio()
 
 
 # Endpoint para traer lista de ProfesoresSinId:
-@profesores_api.get('', response_model=list[ProfesorSinId])
+@profesores_api.get('', response_model=list[ProfesorApi])
 # Inyección de dependencias: La variable db existe en el ambito de este método y luego de cierra.
 def get_all(db=Depends(get_db)):
     result = profesores_repo.get_all(db)
