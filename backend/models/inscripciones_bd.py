@@ -6,6 +6,7 @@ from database import BaseBd
 
 class InscripcionBd(BaseBd):
     __tablename__ = 'inscripciones'
+
     # Constraint para evitar doble inscripción
     __table_args__ = (
         UniqueConstraint('id_curso', 'id_alumno', name='unique_curso_alumno'),

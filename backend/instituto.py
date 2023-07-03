@@ -2,6 +2,7 @@ from api.profesores_api import profesores_api
 from api.cursos_api import cursos_api
 from api.alumnos_api import alumnos_api
 from api.inscripciones_api import inscripciones_api
+from api.asistencias_api import asistencias_api
 from fastapi.middleware.cors import CORSMiddleware  # Error de CORS
 import database
 from fastapi import FastAPI
@@ -10,6 +11,7 @@ import models.cursos_bd
 import models.profesores_bd
 import models.alumnos_bd
 import models.inscripciones_bd
+import models.asistencias_bd
 
 # Crea las tablas que corresponden a las entidades definidas en los modelos de BD.
 database.create_all()
@@ -22,6 +24,7 @@ app.include_router(cursos_api)
 app.include_router(profesores_api)
 app.include_router(alumnos_api)
 app.include_router(inscripciones_api)
+app.include_router(asistencias_api)
 
 # Para solucionar erros de CORS POLICY - Valores de Midleware:
 # https://fastapi.tiangolo.com/tutorial/cors/

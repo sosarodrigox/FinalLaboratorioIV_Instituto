@@ -14,6 +14,9 @@ class AlumnoBd(BaseBd):
     # Relationships (Atributos de navegación):
     # Cursos en los que está inscripto
     curso = relationship("InscripcionBd", back_populates='alumno')
+    # Asistencias a cursos:
+    asistencias = relationship(
+        "AsistenciaBd", cascade="all, delete", back_populates="alumno")
 
     def __repr__(self):
         return f"<Alumno(Apellido={self.apellido} nombre={self.nombre})>"

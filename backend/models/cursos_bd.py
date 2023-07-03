@@ -27,6 +27,10 @@ class CursoBd(BaseBd):
     alumnos = relationship(
         "InscripcionBd", cascade="all, delete", back_populates='curso')
 
+    # Asistencias
+    asistencias = relationship(
+        "AsistenciaBd", cascade="all, delete", back_populates="curso")
+
     def __repr__(self):
         return f"<Curso(nombre={self.nombre}, fecha_inicio={self.fecha_inicio} - fecha_fin={self.fecha_fin})>"
 
