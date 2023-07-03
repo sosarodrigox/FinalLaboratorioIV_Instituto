@@ -14,9 +14,9 @@ Los cursos pueden tener una cantidad N de alumnos (N depende del curso) y tienen
 
 Consultas:
 
-    * Lista de cursos (Listo BackEnd)
+    * Lista de cursos (Listo BackEnd/FrontEnd)
     * Detalle de los alumnos inscriptos en un curso particular (Listo BackEnd)
-    * Cursos de un profesor (Listo Backend) **TODO: Ver RM**
+    * Cursos de un profesor (Listo Backend)
     * Cursos de un alumno (Listo Backend)
     * Asistencia de un alumno a un curso en una fecha (Listo Backend)
 
@@ -48,6 +48,9 @@ Paquetes a instalar:
     * Bootstrap: npm install bootstrap
 
     * Axios: npm install axios
+
+    * DatePicker (Selector de fechas): npm install react-datepicker
+
 
 
 ===================================================================
