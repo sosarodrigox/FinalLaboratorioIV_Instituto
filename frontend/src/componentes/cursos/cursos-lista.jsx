@@ -15,7 +15,7 @@ function CursosLista() {
   useEffect(() => {
     getDatos();
     console.log(cursos);
-  }, []);
+  }, []); 
 
   const getDatos = async () => {
     let resultado = await axios.get("http://localhost:8000/cursos");
@@ -46,7 +46,7 @@ function CursosLista() {
   };
 
   // Ordenar la lista de cursos por ID de manera ascendente
-  const cursosOrdenados = cursos.sort((a, b) => a.id - b.id);
+  /* const cursosOrdenados = cursos.sort((a, b) => a.id - b.id); */
 
   return (
     <>
@@ -55,7 +55,7 @@ function CursosLista() {
         <table className="table">
           <thead>
             <tr>
-              <th>Id</th>
+{/*               <th>Id</th> */}
               <th>Nombre</th>
               <th>Cantidad de alumnos</th>
               <th>Fecha inicio</th>
@@ -65,11 +65,11 @@ function CursosLista() {
             </tr>
           </thead>
           <tbody>
-            {cursosOrdenados.map((curso, idx) => (
+            {cursos.map((curso, idx) => (
               <tr key={curso.id}>
-                <td>
+{/*                 <td>
                   <Link to={"" + curso.id}>{curso.id}</Link>
-                </td>
+                </td> */}
                 <td>{curso.nombre}</td>
                 <td>{curso.cantidad_alumnos}</td>
                 <td>{curso.fecha_inicio}</td>

@@ -20,7 +20,6 @@ function CursoForm() {
 
   useEffect(() => {
     if (params.id < 0) {
-      /* setDatos({ id: -1, nombre: "", cantidad_}); */
       console.log(curso)
       setDatos(curso);
     } else {
@@ -58,13 +57,16 @@ function CursoForm() {
         let resultado = await axios.post(`http://localhost:8000/cursos/`, datos);
         /* Aca puedo tomar el resultado que me da await y ponerlo en el estado y seguir mostrandolo en el formulario */
         console.log(resultado);
+        alert("Curso cargado con éxito");
       } else {
         let resultado = await axios.put(`http://localhost:8000/cursos/${datos.id}`, datos);
         /* console.log(resultado); */
+        alert("Curso modificado con éxito");
       }
       navegar(-1); /* vuelvo a la pagina del listado de cursos, hace un get a todos los cursos actualizados*/
+      
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.detail);
     }
   };
 
