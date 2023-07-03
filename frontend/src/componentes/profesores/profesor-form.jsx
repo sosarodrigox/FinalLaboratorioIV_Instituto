@@ -45,12 +45,14 @@ function ProfesorForm() {
             if (datos.id == -1) {
                 let resultado = await axios.post(`http://localhost:8000/profesores/`, datos);
                 console.log(resultado);
+                alert("Profesor cargado con éxito");
             } else {
                 let resultado = await axios.put(`http://localhost:8000/profesores/${datos.id}`, datos);
+                alert("Profesor modificado con éxito");
             }
             navegar(-1);
         } catch (error) {
-            console.log(error);
+            alert(error.response.data.detail);
         }
     };
 

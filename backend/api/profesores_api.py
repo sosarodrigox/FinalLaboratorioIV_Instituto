@@ -9,8 +9,9 @@ profesores_api = APIRouter(prefix='/profesores', tags=['Profesores'])
 # Repos:
 profesores_repo = ProfesoresRepositorio()
 
-
 # Endpoint para traer lista de ProfesoresSinId:
+
+
 @profesores_api.get('', response_model=list[ProfesorApi])
 # Inyección de dependencias: La variable db existe en el ambito de este método y luego de cierra.
 def get_all(db=Depends(get_db)):
@@ -34,6 +35,10 @@ def get_by_id(id: int, db=Depends(get_db)):
 
 @profesores_api.post('', response_model=ProfesorApi, status_code=201)
 def post(datos: ProfesorSinId, db=Depends(get_db)):
+    # Verifica la longitud del campo dni
+    if len(datos.dni) > 8:
+        raise HTTPException(
+            status_code=400, detail='El "dni" no puede tener más de 8 caracteres')
     result = profesores_repo.create(db, datos)
     return result
 
@@ -42,6 +47,10 @@ def post(datos: ProfesorSinId, db=Depends(get_db)):
 
 @profesores_api.put('/{id}', response_model=ProfesorApi)
 def put(id: int, datos: ProfesorSinId, db=Depends(get_db)):
+    # Verifica la longitud del campo dni
+    if len(datos.dni) > 8:
+        raise HTTPException(
+            status_code=400, detail='El "dni" no puede tener más de 8 caracteres')
     result = profesores_repo.modify(id, datos, db)
     if result is None:
         raise HTTPException(
