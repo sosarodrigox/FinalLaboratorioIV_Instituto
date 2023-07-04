@@ -69,6 +69,10 @@ def post(datos: CursoSinId, db=Depends(get_db)):
         raise HTTPException(
             status_code=400, detail='La fecha de fin no puede ser anterior a la fecha de inicio')
 
+     # Si no se ha seleccionado un profesor auxiliar, establecerlo como None
+    if datos.profesor_auxiliar_id == "":
+        datos.profesor_auxiliar_id = None
+
     # Si valida, crea:
     result = cursos_repo.create(db, datos)
     return result
@@ -98,6 +102,10 @@ def put(id: int, datos: CursoSinId, db=Depends(get_db)):
         raise HTTPException(
             status_code=400, detail='La fecha de fin no puede ser anterior a la fecha de inicio')
     result = cursos_repo.modify(id, datos, db)
+
+    # Si no se ha seleccionado un profesor auxiliar, establecerlo como None
+    if datos.profesor_auxiliar_id == "":
+        datos.profesor_auxiliar_id = None
 
     if result is None:
         raise HTTPException(

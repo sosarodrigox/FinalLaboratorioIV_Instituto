@@ -59,12 +59,19 @@ function CursoForm() {
 
   const grabarCambios = async () => {
     try {
+
+      if (!datos.profesor_auxiliar_id) {
+        // Si no se ha seleccionado un profesor auxiliar, establecerlo como null
+        setDatos({ ...datos, profesor_auxiliar_id: null });
+      }
+
       if (datos.id === -1) {
         let resultado = await axios.post(`http://localhost:8000/cursos/`, datos);
         console.log(resultado);
         alert("Curso cargado con éxito");
       } else {
         let resultado = await axios.put(`http://localhost:8000/cursos/${datos.id}`, datos);
+        console.log(resultado);
         alert("Curso modificado con éxito");
       }
       navegar(-1);
@@ -160,7 +167,7 @@ function CursoForm() {
           <option value="">Seleccionar profesor</option>
           {profesores.map((profesor) => (
             <option key={profesor.id} value={profesor.id}>
-              {profesor.nombre}
+              {profesor.apellido}, {profesor.nombre}
             </option>
           ))}
         </select>
@@ -180,7 +187,7 @@ function CursoForm() {
           <option value="" selected>Seleccionar profesor</option>
           {profesores.map((profesor) => (
             <option key={profesor.id} value={profesor.id}>
-              {profesor.nombre}
+              {profesor.apellido}, {profesor.nombre}
             </option>
           ))}
         </select>
