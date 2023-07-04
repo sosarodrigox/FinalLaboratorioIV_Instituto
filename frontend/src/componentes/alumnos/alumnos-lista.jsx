@@ -25,6 +25,10 @@ function AlumnosLista() {
         navegar("" + id);
     };
 
+    const inscribirAlumno = (id) => {
+        navegar("inscripcion/" + id);
+    };
+
     const eliminarAlumno = async (id) => {
         try {
             const confirmarEliminar = window.confirm(
@@ -66,6 +70,16 @@ function AlumnosLista() {
                                         Modificar
                                     </button>
                                 </td>
+
+                                <td>
+                                    <button
+                                        className="btn btn-success"
+                                        onClick={() => inscribirAlumno(alumno.id)}
+                                    >
+                                        Inscribir
+                                    </button>
+                                </td>
+
                                 <td>
                                     <button
                                         className="btn btn-danger"
