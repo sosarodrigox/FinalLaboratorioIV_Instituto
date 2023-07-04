@@ -11,7 +11,7 @@ function Consultas() {
           </NavLink>
         </li>
         <li className="nav-item">
-          <NavLink to="alumnosXcurso" className="nav-link">
+          <NavLink to="alumnos-curso" className="nav-link">
             Alumnos inscriptos en un curso específico
           </NavLink>
         </li>
@@ -31,6 +31,8 @@ function Consultas() {
           </NavLink>
         </li>
       </ul>
+
+      <Outlet></Outlet>
     </>
   );
 }
