@@ -1,3 +1,4 @@
+import re
 from fastapi import APIRouter, Depends, HTTPException
 from database import get_db
 from models.profesores_api import ProfesorApi, ProfesorSinId
@@ -39,6 +40,12 @@ def post(datos: ProfesorSinId, db=Depends(get_db)):
     if len(datos.dni) > 8:
         raise HTTPException(
             status_code=400, detail='El "dni" no puede tener más de 8 caracteres')
+
+    # Verifica que el campo dni solo contenga números (Utilizamos expresiones regulares libreria "re")
+    if not re.match(r'^\d+$', datos.dni):
+        raise HTTPException(
+            status_code=400, detail='El "dni" solo puede tener caracteres numéricos sin puntos')
+
     result = profesores_repo.create(db, datos)
     return result
 
@@ -51,6 +58,12 @@ def put(id: int, datos: ProfesorSinId, db=Depends(get_db)):
     if len(datos.dni) > 8:
         raise HTTPException(
             status_code=400, detail='El "dni" no puede tener más de 8 caracteres')
+
+    # Verifica que el campo dni solo contenga números (Utilizamos expresiones regulares libreria "re")
+    if not re.match(r'^\d+$', datos.dni):
+        raise HTTPException(
+            status_code=400, detail='El "dni" solo puede tener caracteres numéricos sin puntos')
+
     result = profesores_repo.modify(id, datos, db)
     if result is None:
         raise HTTPException(

@@ -1,3 +1,4 @@
+import re
 from fastapi import APIRouter, Depends, HTTPException
 from database import get_db
 from models.alumnos_api import AlumnoSinId, AlumnoApi
@@ -29,6 +30,10 @@ def post(datos: AlumnoSinId, db=Depends(get_db)):
     if len(datos.dni) > 8:
         raise HTTPException(
             status_code=400, detail='El "dni" no puede tener más de 8 caracteres')
+    # Verifica que el campo dni solo contenga números (Utilizamos expresiones regulares libreria "re")
+    if not re.match(r'^\d+$', datos.dni):
+        raise HTTPException(
+            status_code=400, detail='El "dni" solo puede tener caracteres numéricos sin puntos')
     return alumnos_repo.create(db, datos)
 
 
@@ -38,10 +43,17 @@ def put(id: int, datos: AlumnoSinId, db=Depends(get_db)):
     if len(datos.dni) > 8:
         raise HTTPException(
             status_code=400, detail='El "dni" no puede tener más de 8 caracteres')
+
+    # Verifica que el campo dni solo contenga números (Utilizamos expresiones regulares libreria "re")
+    if not re.match(r'^\d+$', datos.dni):
+        raise HTTPException(
+            status_code=400, detail='El "dni" solo puede tener caracteres numéricos sin puntos')
+
     result = alumnos_repo.modify(id, datos, db)
     if result is None:
         raise HTTPException(
             status_code=404, detail='Alumno no encontrado, no se puede modificar')
+
     return result
 
 # Endpoint para Borrar Profesores:
