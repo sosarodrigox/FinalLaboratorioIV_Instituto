@@ -33,8 +33,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="consultas" element={<Consultas />}>
               <Route path="alumnos-curso" element={<AlumnosEnUnCurso />}></Route>
               <Route path="alumnos-curso/:id" element={<ListadoAlumnosEnUnCurso />}></Route>
-              
-              
           </Route>
 
         </Route>
