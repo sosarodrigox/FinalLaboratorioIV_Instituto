@@ -31,8 +31,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="alumnos/inscripcion/:id" element={<AlumnoInscripcion />}></Route>
           </Route>
           <Route path="consultas" element={<Consultas />}>
-              <Route path="alumnos-curso" element={<AlumnosEnUnCurso />}></Route>
-              <Route path="alumnos-curso/:id" element={<ListadoAlumnosEnUnCurso />}></Route>
+            <Route path="alumnos-curso" element={<AlumnosEnUnCurso />}></Route>
+            <Route path="alumnos-curso/:id" element={<ListadoAlumnosEnUnCurso />}></Route>
           </Route>
 
         </Route>

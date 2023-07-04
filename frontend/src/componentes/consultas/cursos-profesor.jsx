@@ -2,6 +2,18 @@
 
 function CursosDeUnProfesor() {
 
+    // const []
+
+    return (
+        <>
+
+
+
+
+
+        </>
+    )
+
 
 }
 

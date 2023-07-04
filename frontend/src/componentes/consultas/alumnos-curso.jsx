@@ -48,7 +48,7 @@ function AlumnosEnUnCurso() {
             </option>
           ))}
         </select>
-        
+
       </div>
       <Outlet></Outlet>
     </>
