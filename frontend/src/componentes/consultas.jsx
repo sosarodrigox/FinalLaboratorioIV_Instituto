@@ -6,11 +6,6 @@ function Consultas() {
     <>
       <ul className="nav">
         <li className="nav-item">
-          <NavLink to="listado-cursos" className="nav-link">
-            Lista de cursos
-          </NavLink>
-        </li>
-        <li className="nav-item">
           <NavLink to="alumnos-curso" className="nav-link">
             Alumnos inscriptos en un curso específico
           </NavLink>
