@@ -177,7 +177,7 @@ function CursoForm() {
           value={datos.profesor_auxiliar_id}
           onChange={handleChange}
         >
-          <option value="">Seleccionar profesor</option>
+          <option value="" selected>Seleccionar profesor</option>
           {profesores.map((profesor) => (
             <option key={profesor.id} value={profesor.id}>
               {profesor.nombre}
