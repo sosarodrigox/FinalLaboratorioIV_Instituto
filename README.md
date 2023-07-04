@@ -49,7 +49,7 @@ Paquetes a instalar:
 
     * Axios: npm install axios
 
-    * DatePicker (Selector de fechas): npm install react-datepicker
+    * DatePicker (Selector de fechas): (dentro de carpeta frontend) npm install react-datepicker
 
 
 
