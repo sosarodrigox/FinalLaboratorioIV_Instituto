@@ -10,7 +10,7 @@ function ListadoAsistencia() {
   const [cursoSeleccionado, setCursoSeleccionado] = useState({});
   const [alumnoSeleccionado, setAlumnoSeleccionado] = useState({});
   const [fechaSeleccionada, setFechaSeleccionada] = useState(null);
-  const [asistencias, setAsistencias] = useState([]);
+  const [asistencia, setAsistencia] = useState({});
 
   useEffect(() => {
     getCursos();
@@ -58,15 +58,15 @@ function ListadoAsistencia() {
         const url = `http://localhost:8000/asistencias/${alumnoSeleccionado.id}/${cursoSeleccionado.id}/${fechaISO}`;
         const resultado = await axios.get(url);
         console.log(resultado.data);
-        setAsistencias(resultado.data);
+        setAsistencia(resultado.data);
       } else {
         alert("Debes seleccionar un curso, un alumno y una fecha");
-        setAsistencias([]); // Limpiar la lista de asistencias
+        setAsistencia([]); // Limpiar la lista de asistencias
       }
     } catch (error) {
       console.error(error);
       alert(error.response.data.detail);
-      setAsistencias([]); // Limpiar la lista de asistencias
+      setAsistencia([]); // Limpiar la lista de asistencias
     }
   };
 
@@ -142,11 +142,11 @@ function ListadoAsistencia() {
         <label htmlFor="edFecha" className="form-label">
           Fecha
         </label>
-      <DatePicker
-        selected={fechaSeleccionada}
-        onChange={handleFechaChange}
-        dateFormat="yyyy-MM-dd" // Cambiar "YYYY" a "yyyy"
-      />
+        <DatePicker
+          selected={fechaSeleccionada}
+          onChange={handleFechaChange}
+          dateFormat="yyyy-MM-dd" // Cambiar "YYYY" a "yyyy"
+        />
       </div>
 
       <button
@@ -156,35 +156,13 @@ function ListadoAsistencia() {
       >
         Consultar
       </button>
+      <br></br>
 
-      {/* -------------------------------------------------------------- */}
-
-      {
-        <div className="container-fluid">
-          <h1 className="mt-3">Asistencia de {alumnoSeleccionado.nombre}</h1>
-          <table className="table">
-            <thead>
-              <tr>
-                {/*               <th>Id</th> */}
-                <th>Alumno</th>
-                <th>Curso</th>
-                <th>Fecha</th>
-                <th>Estado</th>
-              </tr>
-            </thead>
-            <tbody>
-              {asistencias.map((asistencia, idx) => (
-                <tr key={asistencia.id}>
-                  <td>{asistencia.id_alumno}</td>
-                  <td>{asistencia.id_cuso}</td>
-                  <td>{asistencia.fecha}</td>
-                  <td>{asistencia.asistio}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      }
+      {asistencia.asistio ? (
+        <h1 className="presente">Presente</h1>
+      ) : (
+        <h1 className="ausente">Ausente</h1>
+      )}
     </div>
   );
 }
