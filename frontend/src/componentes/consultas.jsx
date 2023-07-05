@@ -22,6 +22,11 @@ function Consultas() {
         </li>
         <li className="nav-item">
           <NavLink to="asistencia" className="nav-link">
+            Gestión de asistencia
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink to="asistencia-listado" className="nav-link">
             Asistencia de un alumno a un curso en una fecha
           </NavLink>
         </li>
