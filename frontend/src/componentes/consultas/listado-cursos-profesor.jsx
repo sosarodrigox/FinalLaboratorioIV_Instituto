@@ -61,9 +61,6 @@ function ListadoCursosProfesor() {
         return formattedDate;
     };
 
-
-
-
     return (
         <div className="text-start col-6 offset-3 border p-3">
             <h2 className="mt-3">Cursos asignados a un profesor</h2>
