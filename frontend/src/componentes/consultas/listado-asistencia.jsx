@@ -130,7 +130,7 @@ function ListadoAsistencia() {
           className="form-control"
           id="edAlumnoEnUnCurso"
           name="nombre"
-          value={alumnoSeleccionado}
+          value={alumnoSeleccionado.id}
           onChange={handleChangeAlumno}
         >
           <option value="" disabled>
@@ -163,7 +163,7 @@ function ListadoAsistencia() {
       </div>
 
       <button type="button" className="btn btn-primary" onClick={getAsistenciasAlumnoPorCurso}>
-        Cargar
+        Consultar
       </button>
 
       {/* -------------------------------------------------------------- */}
