@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 function ListadoCursosProfesor() {
@@ -44,8 +42,7 @@ function ListadoCursosProfesor() {
                 );
                 setCursos(resultado.data);
             } else {
-                // Lógica para manejar el caso en que no haya un curso seleccionado
-                // Puedes mostrar un mensaje de error o realizar alguna otra acción
+                alert("Debes seleccionar un profesor");
             }
         } catch (error) {
             console.error(error);
@@ -76,7 +73,7 @@ function ListadoCursosProfesor() {
                     value={profesorSeleccionado.nombre}
                     onChange={handleChange}
                 >
-                    <option value="" disabled>
+                    <option value="">
                         Seleccionar profesor
                     </option>
                     {profesores.map((profesor) => (
@@ -111,7 +108,6 @@ function ListadoCursosProfesor() {
                                     <td>{curso.cantidad_alumnos}</td>
                                     <td>{formatDate(curso.fecha_inicio)}</td>
                                     <td>{formatDate(curso.fecha_fin)}</td>
-
                                 </tr>
                             ))}
                         </tbody>

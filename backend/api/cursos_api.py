@@ -40,7 +40,7 @@ def get_cursos_profesor(id_profesor: int, db=Depends(get_db)):
         raise HTTPException(status_code=404, detail='El profesor no existe')
     else:
         result = cursos_repo.get_cursos_profesor(id_profesor, db)
-        if result is None:
+        if not result:
             raise HTTPException(
                 status_code=404, detail='El profesor no tiene cursos asignados')
     return result
