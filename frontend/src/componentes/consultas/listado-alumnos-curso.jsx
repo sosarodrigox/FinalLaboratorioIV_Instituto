@@ -46,7 +46,6 @@ function ListadoAlumnosEnUnCurso() {
               <td>{dato.nombre}</td>
               <td>{dato.apellido}</td>
               <td>{dato.dni}</td>
-              <td>✅</td>
             </tr>
           ))}
         </tbody>
