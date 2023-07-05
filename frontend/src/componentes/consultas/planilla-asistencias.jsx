@@ -64,7 +64,7 @@ function PlanillaAsistencia() {
   const grabarAsistio = async (alumnoId) => {
     try {
 
-      
+
       let datos = {
         "id_alumno": alumnoId,
         "id_curso": cursoSeleccionado.id,
@@ -104,13 +104,13 @@ function PlanillaAsistencia() {
 
   const grabarNoAsistio = async (alumnoId) => {
     try {
-        let datos = {
-          "id_alumno": alumnoId,
-          "id_curso": cursoSeleccionado.id,
-          "fecha": cursoSeleccionado.fecha_inicio,
-          "asistio": false
-        }
-        
+      let datos = {
+        "id_alumno": alumnoId,
+        "id_curso": cursoSeleccionado.id,
+        "fecha": cursoSeleccionado.fecha_inicio,
+        "asistio": false
+      }
+
       console.log(datos)
 
       //Lo que está trayendo:
@@ -154,7 +154,7 @@ function PlanillaAsistencia() {
           className="form-control"
           id="edCursos"
           name="nombre"
-          value={cursoSeleccionado}
+          value={cursoSeleccionado.id}
           onChange={handleChange}
         >
           <option value="" disabled>
