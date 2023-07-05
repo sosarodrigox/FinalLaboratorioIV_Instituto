@@ -28,6 +28,8 @@ function AlumnosEnUnCurso() {
 
   return (
     <>
+     <div className="text-start col-6 offset-3 border p-3">
+      <h2 className="mt-3 text-center">Cursos vigentes</h2>
       <div className="mb-3 col-2">
         <label htmlFor="edCursos" className="form-label">
           Cursos
@@ -48,9 +50,12 @@ function AlumnosEnUnCurso() {
             </option>
           ))}
         </select>
-
       </div>
-      <Outlet></Outlet>
+      <Outlet>
+
+</Outlet>
+      </div>
+
     </>
   );
 }

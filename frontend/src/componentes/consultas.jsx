@@ -26,7 +26,7 @@ function Consultas() {
           </NavLink>
         </li>
       </ul>
-
+      <br></br>
       <Outlet></Outlet>
     </>
   );
