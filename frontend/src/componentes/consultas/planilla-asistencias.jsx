@@ -39,6 +39,7 @@ function PlanillaAsistencia() {
 
   const getAlumnosPorCurso = async () => {
     try {
+      setAlumnos([]);
       if (cursoSeleccionado.id) {
         const resultado = await axios.get(
           `http://localhost:8000/inscripciones/alumnos/${cursoSeleccionado.id}`
@@ -101,6 +102,47 @@ function PlanillaAsistencia() {
       alert(error.response.data.detail);
     }
   };
+
+
+  const grabarNoAsistio = async (alumnoId) => {
+    try {
+      let datos = {
+        "id_alumno": alumnoId,
+        "id_curso": cursoSeleccionado.id,
+        "fecha": cursoSeleccionado.fecha_inicio,
+        "asistio": false
+      }
+
+      console.log(datos)
+
+      //Lo que está trayendo:
+      /*
+      {id_alumno: undefined, id_curso: '4', fecha: '2023-06-26', asistio: true}
+          asistio:true
+          fecha:"2023-06-26"
+          id_alumno:undefined
+          id_curso:"4"
+      */
+
+      // // Funciona:
+      // let datos = {
+      //   "id_alumno": 7,
+      //   "id_curso": 11,
+      //   "fecha": "2023-07-08",
+      //   "asistio": true
+      // }
+
+
+      let resultado = await axios.post(`http://localhost:8000/asistencias/`, datos);
+      console.log(resultado);
+      alert("Cargado que asistió");
+
+    } catch (error) {
+      alert(error.response.data.detail);
+    }
+  };
+
+
 
   return (
     <div className="text-start col-6 offset-3 border p-3">
@@ -176,6 +218,12 @@ function PlanillaAsistencia() {
                     onClick={() => grabarAsistio(alumno.id)}
                   >
                     Asistio
+                  </button></td>
+                  <td>          <button
+                    className="btn btn-secondary ms-1"
+                    onClick={() => grabarNoAsistio(alumno.id)}
+                  >
+                    No asistió
                   </button></td>
                 </tr>
               ))}
