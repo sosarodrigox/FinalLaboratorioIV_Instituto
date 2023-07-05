@@ -156,7 +156,7 @@ function PlanillaAsistencia() {
           className="form-control"
           id="edCursos"
           name="nombre"
-          value={cursoSeleccionado.nombre}
+          value={cursoSeleccionado.id}
           onChange={handleChange}
         >
           <option value="" disabled>
@@ -172,7 +172,7 @@ function PlanillaAsistencia() {
 
       <div className="mb-3 col-2">
         <label htmlFor="edFechaInicio" className="form-label">
-          Fecha de inicio
+          Fecha
         </label>
         <DatePicker
           className="form-control"
