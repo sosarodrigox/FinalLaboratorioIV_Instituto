@@ -34,6 +34,11 @@ def get_asistencia_alu_cur_fec(id_alumno: int, id_curso: int, fecha: date, db=De
 
 @asistencias_api.post('', response_model=AsistenciaApi, status_code=201)
 def post(datos: AsistenciaApi, db=Depends(get_db)):
+    result = asistencias_repo.get_asistencia_alu_cur_fec(
+        datos.id_alumno, datos.id_curso, datos.fecha, db)
+    # Si el result es None levanta una excepción con código de error.
+    if result != None:
+        raise HTTPException(status_code=404, detail='Asistencia existente')
     result = asistencias_repo.create(db, datos)
     print(result)
     return result
