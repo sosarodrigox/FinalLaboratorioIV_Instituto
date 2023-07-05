@@ -59,7 +59,6 @@ function CursoForm() {
 
   const grabarCambios = async () => {
     try {
-
       if (!datos.profesor_auxiliar_id) {
         // Si no se ha seleccionado un profesor auxiliar, establecerlo como null
         setDatos({ ...datos, profesor_auxiliar_id: null });
@@ -76,7 +75,11 @@ function CursoForm() {
       }
       navegar(-1);
     } catch (error) {
-      alert(error.response.data.detail);
+      if (!datos.profesor_titular_id) {
+        alert("Debe seleccionar un profesor titular");
+      } else {
+        alert(error.response.data.detail);
+      }
     }
   };
 
