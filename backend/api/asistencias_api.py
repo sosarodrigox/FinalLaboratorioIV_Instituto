@@ -39,6 +39,7 @@ def post(datos: AsistenciaApi, db=Depends(get_db)):
     # Si el result es None levanta una excepción con código de error.
     if result != None:
         raise HTTPException(status_code=404, detail='Asistencia existente')
-    result = asistencias_repo.create(db, datos)
-    print(result)
-    return result
+    else:
+        result = asistencias_repo.create(db, datos)
+        print(result)
+        return result
