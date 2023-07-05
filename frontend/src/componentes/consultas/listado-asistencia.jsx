@@ -9,7 +9,8 @@ function ListadoAsistencia() {
   const [alumnos, setAlumnos] = useState([]);
   const [cursoSeleccionado, setCursoSeleccionado] = useState({});
   const [alumnoSeleccionado, setAlumnoSeleccionado] = useState({});
-  const [asistencias, setAsistencias] = useState([])
+  const [fechaSeleccionada, setFechaSeleccionada] = useState(null);
+  const [asistencias, setAsistencias] = useState([]);
 
   useEffect(() => {
     getCursos();
@@ -28,50 +29,54 @@ function ListadoAsistencia() {
     }
   };
 
-
-  const getAlumnosPorCurso = async () => {
+  const getAlumnosPorCurso = async (curso) => {
     try {
       /* setAlumnos([]); */
-      if (cursoSeleccionado.id) {
+      if (curso.id) {
         const resultado = await axios.get(
-          `http://localhost:8000/inscripciones/alumnos/${cursoSeleccionado.id}`
+          `http://localhost:8000/inscripciones/alumnos/${curso.id}`
         );
+        console.log(resultado.data);
         setAlumnos(resultado.data);
+        setAlumnoSeleccionado({}); // Limpiar el alumno seleccionado
       } else {
-        // Lógica para manejar el caso en que no haya un curso seleccionado
-        // Puedes mostrar un mensaje de error o realizar alguna otra acción
+        alert("Debes seleccionar un curso");
       }
     } catch (error) {
       console.error(error);
       alert(error.response.data.detail);
+      setAlumnos([]); // Limpiar la lista de alumnos
+      setAlumnoSeleccionado({}); // Limpiar el alumno seleccionado
+      setFechaSeleccionada(null); // Limpiar el alumno seleccionado
     }
   };
 
-
   const getAsistenciasAlumnoPorCurso = async () => {
     try {
-        if(cursoSeleccionado.id && alumnoSeleccionado.id && cursoSeleccionado.fecha_inicio){
-            const resultado = await axios.get(`http://localhost:8000/inscripciones/${alumnoSeleccionado.id}/${cursoSeleccionado.id}`)
-            console.log(resultado.data)
-            setAsistencias(resultado.data);
-        }
-        else {
-            alert("El curso o el alumno o la fecha seleccionado son incorrectas")
-        }
-        
+      if (cursoSeleccionado.id && alumnoSeleccionado.id && fechaSeleccionada) {
+        const fechaISO = fechaSeleccionada.toISOString().split("T")[0];
+        const url = `http://localhost:8000/asistencias/${alumnoSeleccionado.id}/${cursoSeleccionado.id}/${fechaISO}`;
+        const resultado = await axios.get(url);
+        console.log(resultado.data);
+        setAsistencias(resultado.data);
+      } else {
+        alert("Debes seleccionar un curso, un alumno y una fecha");
+        setAsistencias([]); // Limpiar la lista de asistencias
+      }
     } catch (error) {
-        console.error(error);
-        alert(error.response.data.detail);
+      console.error(error);
+      alert(error.response.data.detail);
+      setAsistencias([]); // Limpiar la lista de asistencias
     }
-  }
+  };
 
   const handleChangeCurso = (e) => {
-    /* Guardar el dato de id curso */
-    setCursoSeleccionado({
-      ...cursoSeleccionado,
-      id: parseInt(e.target.value), // Convertir a entero
-    });
-    getAlumnosPorCurso();
+    const selectedCurso = cursos.find(
+      (curso) => curso.id === parseInt(e.target.value)
+    );
+    setCursoSeleccionado(selectedCurso || {});
+    getAlumnosPorCurso(selectedCurso || {});
+    console.log(selectedCurso);
   };
 
   const handleChangeAlumno = (e) => {
@@ -82,24 +87,16 @@ function ListadoAsistencia() {
     });
   };
 
-
-
-  const handleDateChange = (date, name) => {
-    /* Guardar el dato de la fecha */
-    setCursoSeleccionado({
-      ...cursoSeleccionado,
-      [name]: date.toISOString().split("T")[0],
-    });
+  const handleFechaChange = (date) => {
+    /* const formattedDate = date.toISOString().split("T")[0]; */
+    setFechaSeleccionada(date);
   };
-
-
-  
 
   return (
     <div className="text-start col-6 offset-3 border p-3">
       <h2 className="mt-3">Datos del curso</h2>
 
-      <div className="mb-3 col-3">
+      <div className="mb-3 col-4">
         <label htmlFor="edCursos" className="form-label">
           Cursos disponibles
         </label>
@@ -110,9 +107,7 @@ function ListadoAsistencia() {
           value={cursoSeleccionado.id}
           onChange={handleChangeCurso}
         >
-          <option value="" disabled>
-            Seleccionar curso
-          </option>
+          <option value="">Seleccionar un curso</option>
           {cursos.map((curso) => (
             <option key={curso.id} value={curso.id}>
               {curso.nombre}
@@ -121,8 +116,7 @@ function ListadoAsistencia() {
         </select>
       </div>
 
-
-      <div className="mb-3 col-2">
+      <div className="mb-3 col-4">
         <label htmlFor="edAlumnoEnUnCurso" className="form-label">
           Alumnos inscriptos en {cursoSeleccionado.nombre}
         </label>
@@ -130,11 +124,11 @@ function ListadoAsistencia() {
           className="form-control"
           id="edAlumnoEnUnCurso"
           name="nombre"
-          value={alumnoSeleccionado.id}
+          value={alumnoSeleccionado.nombre}
           onChange={handleChangeAlumno}
         >
           <option value="" disabled>
-            Seleccionar curso
+            Seleccionar alumno
           </option>
           {alumnos.map((alumno) => (
             <option key={alumno.id} value={alumno.id}>
@@ -145,24 +139,21 @@ function ListadoAsistencia() {
       </div>
 
       <div className="mb-3 col-2">
-        <label htmlFor="edFechaInicio" className="form-label">
+        <label htmlFor="edFecha" className="form-label">
           Fecha
         </label>
-        <DatePicker
-          className="form-control"
-          id="edFechaInicio"
-          name="fecha_inicio"
-          selected={
-            cursoSeleccionado.fecha_inicio
-              ? new Date(cursoSeleccionado.fecha_inicio)
-              : null
-          }
-          onChange={(date) => handleDateChange(date, "fecha_inicio")}
-          dateFormat="yyyy-MM-dd"
-        />
+      <DatePicker
+        selected={fechaSeleccionada}
+        onChange={handleFechaChange}
+        dateFormat="yyyy-MM-dd" // Cambiar "YYYY" a "yyyy"
+      />
       </div>
 
-      <button type="button" className="btn btn-primary" onClick={getAsistenciasAlumnoPorCurso}>
+      <button
+        type="button"
+        className="btn btn-primary"
+        onClick={getAsistenciasAlumnoPorCurso}
+      >
         Consultar
       </button>
 
@@ -181,17 +172,17 @@ function ListadoAsistencia() {
                 <th>Estado</th>
               </tr>
             </thead>
-{/*             <tbody>
+            <tbody>
               {asistencias.map((asistencia, idx) => (
                 <tr key={asistencia.id}>
-                  <td>{alumno.nombre}</td>
-                  <td>{alumno.apellido}</td>
-                  <td>{alumno.dni}</td>
+                  <td>{asistencia.id_alumno}</td>
+                  <td>{asistencia.id_cuso}</td>
+                  <td>{asistencia.fecha}</td>
+                  <td>{asistencia.asistio}</td>
                 </tr>
               ))}
-            </tbody> */}
+            </tbody>
           </table>
-
         </div>
       }
     </div>

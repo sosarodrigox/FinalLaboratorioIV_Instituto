@@ -154,10 +154,10 @@ function PlanillaAsistencia() {
           className="form-control"
           id="edCursos"
           name="nombre"
-          value={cursoSeleccionado}
+          value={cursoSeleccionado.id}
           onChange={handleChange}
         >
-          <option value="" disabled>
+          <option value="">
             Seleccionar curso
           </option>
           {cursos.map((curso) => (

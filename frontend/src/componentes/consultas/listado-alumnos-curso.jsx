@@ -59,7 +59,7 @@ function ListadoAlumnosEnUnCurso() {
           className="form-control"
           id="edCursos"
           name="nombre"
-          value={cursoSeleccionado.nombre}
+          value={cursoSeleccionado.id}
           onChange={handleChange}
         >
           <option value="">
