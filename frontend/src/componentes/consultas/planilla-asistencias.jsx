@@ -67,6 +67,8 @@ function PlanillaAsistencia() {
 
   const grabarAsistio = async (alumnoId) => {
     try {
+
+      
       let datos = {
         "id_alumno": alumnoId,
         "id_curso": cursoSeleccionado.id,
@@ -106,13 +108,19 @@ function PlanillaAsistencia() {
 
   const grabarNoAsistio = async (alumnoId) => {
     try {
-      let datos = {
-        "id_alumno": alumnoId,
-        "id_curso": cursoSeleccionado.id,
-        "fecha": cursoSeleccionado.fecha_inicio,
-        "asistio": false
-      }
 
+      
+        let datos = {
+          "id_alumno": alumnoId,
+          "id_curso": cursoSeleccionado.id,
+          "fecha": cursoSeleccionado.fecha_inicio,
+          "asistio": false
+        }
+        setAsistencia(datos);
+      
+
+
+      setAsistencia(datos);
       console.log(datos)
 
       //Lo que está trayendo:
@@ -135,7 +143,7 @@ function PlanillaAsistencia() {
 
       let resultado = await axios.post(`http://localhost:8000/asistencias/`, datos);
       console.log(resultado);
-      alert("Cargado que asistió");
+      alert("Cargado que no asistió");
 
     } catch (error) {
       alert(error.response.data.detail);
@@ -156,7 +164,7 @@ function PlanillaAsistencia() {
           className="form-control"
           id="edCursos"
           name="nombre"
-          value={cursoSeleccionado.id}
+          value={cursoSeleccionado}
           onChange={handleChange}
         >
           <option value="" disabled>
