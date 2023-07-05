@@ -33,7 +33,7 @@ function PlanillaAsistencia() {
     /* Guardar el dato de id curso */
     setCursoSeleccionado({
       ...cursoSeleccionado,
-      id: e.target.value,
+      id: parseInt(e.target.value), // Convertir a entero
     });
   };
 
@@ -58,20 +58,44 @@ function PlanillaAsistencia() {
 
   const handleDateChange = (date, name) => {
     /* Guardar el dato de la fecha */
-
     setCursoSeleccionado({
       ...cursoSeleccionado,
       [name]: date.toISOString().split("T")[0],
     });
   };
 
-  const grabarAsistio = async (alumnoId) => {
+  const grabarAsistio = async (alumno) => {
     try {
-        let datos = {"id_alumno": alumnoId ,"id_curso": cursoSeleccionado.id, "fecha": cursoSeleccionado.fecha_inicio, "asistio": true }
-        
-        let resultado = await axios.post(`http://localhost:8000/asistencias/`, datos);
-        console.log(resultado);
-        alert("Cargado que asistió");
+      let datos = {
+        "id_alumno": alumno.id,
+        "id_curso": cursoSeleccionado.id,
+        "fecha": cursoSeleccionado.fecha_inicio,
+        "asistio": true
+      }
+
+      console.log(datos)
+
+      //Lo que está trayendo:
+      /*
+      {id_alumno: undefined, id_curso: '4', fecha: '2023-06-26', asistio: true}
+          asistio:true
+          fecha:"2023-06-26"
+          id_alumno:undefined
+          id_curso:"4"
+      */
+
+      // // Funciona:
+      // let datos = {
+      //   "id_alumno": 7,
+      //   "id_curso": 11,
+      //   "fecha": "2023-07-08",
+      //   "asistio": true
+      // }
+
+
+      let resultado = await axios.post(`http://localhost:8000/asistencias/`, datos);
+      console.log(resultado);
+      alert("Cargado que asistió");
 
     } catch (error) {
       alert(error.response.data.detail);
@@ -148,11 +172,11 @@ function PlanillaAsistencia() {
                   <td>{alumno.apellido}</td>
                   <td>{alumno.dni}</td>
                   <td>          <button
-            className="btn btn-secondary ms-1"
-            onClick={() => grabarAsistio(alumno.id)}
-          >
-            Asistio
-          </button></td>
+                    className="btn btn-secondary ms-1"
+                    onClick={() => grabarAsistio(alumno)}
+                  >
+                    Asistio
+                  </button></td>
                 </tr>
               ))}
             </tbody>
