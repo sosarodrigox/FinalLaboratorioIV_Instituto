@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "react-datepicker/dist/react-datepicker.css";
 
-function ListadoCursosProfesor() {
+function ListadoCursosAlumno() {
     const [cursos, setCursos] = useState([]);
-    const [profesores, setProfesores] = useState([]);
+    const [alumnos, setAlumnos] = useState([]);
 
-    const [profesorSeleccionado, setProfesorSeleccionado] = useState({});
+    const [alumnoSeleccionado, setProfesorSeleccionado] = useState({});
 
     useEffect(() => {
         getProfesores();
@@ -14,11 +14,11 @@ function ListadoCursosProfesor() {
 
     const getProfesores = async () => {
         try {
-            let resultado = await axios.get(`http://localhost:8000/profesores`);
-            setProfesores(resultado.data);
+            let resultado = await axios.get(`http://localhost:8000/alumnos`);
+            setAlumnos(resultado.data);
             console.log(resultado.data);
         } catch (error) {
-            setProfesores([]);
+            setAlumnos([]);
             alert(error.response.data.detail);
         }
     };
@@ -26,21 +26,21 @@ function ListadoCursosProfesor() {
     const handleChange = (e) => {
         /* Guardar el dato de id curso */
         setProfesorSeleccionado({
-            ...profesorSeleccionado,
+            ...alumnoSeleccionado,
             id: parseInt(e.target.value), // Convertir a entero
         });
     };
 
-    const getCursosProfesor = async () => {
+    const getCursosAlumno = async () => {
         try {
             setCursos([]);
-            if (profesorSeleccionado.id) {
+            if (alumnoSeleccionado.id) {
                 const resultado = await axios.get(
-                    `http://localhost:8000/cursos/profesor/${profesorSeleccionado.id}`
+                    `http://localhost:8000/inscripciones/cursos/${alumnoSeleccionado.id}`
                 );
                 setCursos(resultado.data);
             } else {
-                alert("Debes seleccionar un profesor");
+                alert("Debes seleccionar un alumno");
             }
         } catch (error) {
             console.error(error);
@@ -58,37 +58,37 @@ function ListadoCursosProfesor() {
 
     return (
         <div className="text-start col-6 offset-3 border p-3">
-            <h1 className="mt-3">Cursos asignados a un profesor</h1>
+            <h1 className="mt-3">Cursos de un alumno</h1>
 
             <div className="mb-3 col-3">
                 <label htmlFor="edCursos" className="form-label">
-                    Profesor:
+                    Alumno:
                 </label>
                 <select
                     className="form-control"
                     id="edCursos"
                     name="nombre"
-                    value={profesorSeleccionado.nombre}
+                    value={alumnoSeleccionado.nombre}
                     onChange={handleChange}
                 >
                     <option value="">
-                        Seleccionar profesor
+                        Seleccionar alumno
                     </option>
-                    {profesores.map((profesor) => (
-                        <option key={profesor.id} value={profesor.id}>
-                            {profesor.apellido}, {profesor.nombre}
+                    {alumnos.map((alumno) => (
+                        <option key={alumno.id} value={alumno.id}>
+                            {alumno.apellido}, {alumno.nombre}
                         </option>
                     ))}
                 </select>
             </div>
 
-            <button type="button" className="btn btn-primary" onClick={getCursosProfesor}>
+            <button type="button" className="btn btn-primary" onClick={getCursosAlumno}>
                 Mostrar cursos
             </button>
 
             {
                 <div className="container-fluid">
-                    <h3 className="mt-3"> Cursos asignados </h3>
+                    <h1 className="mt-3"> Cursos inscripto </h1>
                     <table className="table">
                         <thead>
                             <tr>
@@ -117,4 +117,4 @@ function ListadoCursosProfesor() {
     );
 }
 
-export default ListadoCursosProfesor;
+export default ListadoCursosAlumno;
