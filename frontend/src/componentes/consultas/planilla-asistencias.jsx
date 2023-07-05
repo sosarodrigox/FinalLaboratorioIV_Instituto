@@ -64,10 +64,10 @@ function PlanillaAsistencia() {
     });
   };
 
-  const grabarAsistio = async (alumno) => {
+  const grabarAsistio = async (alumnoId) => {
     try {
       let datos = {
-        "id_alumno": alumno.id,
+        "id_alumno": alumnoId,
         "id_curso": cursoSeleccionado.id,
         "fecha": cursoSeleccionado.fecha_inicio,
         "asistio": true
@@ -173,7 +173,7 @@ function PlanillaAsistencia() {
                   <td>{alumno.dni}</td>
                   <td>          <button
                     className="btn btn-secondary ms-1"
-                    onClick={() => grabarAsistio(alumno)}
+                    onClick={() => grabarAsistio(alumno.id)}
                   >
                     Asistio
                   </button></td>

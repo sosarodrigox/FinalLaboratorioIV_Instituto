@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from models.inscripciones_api import InscripcionApi, InscripcionSinId
 from models.cursos_api import CursoList
-from models.alumnos_api import AlumnoSinId
+from models.alumnos_api import AlumnoApi
 from repos.inscripciones_repo import InscripcionesRepositorio
 from repos.cursos_repo import CursosRepositorio
 from repos.alumnos_repo import AlumnosRepositorio
@@ -16,7 +16,7 @@ alumnos_repo = AlumnosRepositorio()
 # Alumnos inscriptos en un curso particular:
 
 
-@inscripciones_api.get('/alumnos/{id_curso}', response_model=list[AlumnoSinId])
+@inscripciones_api.get('/alumnos/{id_curso}', response_model=list[AlumnoApi])
 def get_alumnos_curso(id_curso: int, db=Depends(get_db)):
     # Primero verifico que el curso exista:
     if cursos_repo.get_by_id(id_curso, db) is None:
