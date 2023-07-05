@@ -15,8 +15,8 @@ import AlumnoInscripcion from "./componentes/alumnos/alumno-inscripcion.jsx";
 import ListadoAlumnosEnUnCurso from "./componentes/consultas/listado-alumnos-curso.jsx";
 import PlanillaAsistencia from './componentes/consultas/planilla-asistencias.jsx'
 import ListadoCursosProfesor from "./componentes/consultas/listado-cursos-profesor.jsx";
+import ListadoAsistencia from './componentes/consultas/listado-asistencia.jsx'
 import ListadoCursosAlumno from "./componentes/consultas/listado-cursos-alumno.jsx";
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -39,6 +39,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="cursos-profesor" element={<ListadoCursosProfesor />}></Route>
             <Route path="cursos-alumnos" element={<ListadoCursosAlumno />}></Route>
             <Route path="asistencia" element={<PlanillaAsistencia />}></Route>
+            <Route path="asistencia-listado" element={<ListadoAsistencia />}></Route>
           </Route>
         </Route>
       </Routes>

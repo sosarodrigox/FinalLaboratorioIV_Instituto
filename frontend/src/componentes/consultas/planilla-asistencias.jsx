@@ -7,9 +7,6 @@ import "react-datepicker/dist/react-datepicker.css";
 function PlanillaAsistencia() {
   const [cursos, setCursos] = useState([]);
   const [alumnos, setAlumnos] = useState([]);
-
-  const navegar = useNavigate();
-
   const [cursoSeleccionado, setCursoSeleccionado] = useState({});
 
   useEffect(() => {
@@ -54,7 +51,6 @@ function PlanillaAsistencia() {
       alert(error.response.data.detail);
     }
   };
-
 
 
   const handleDateChange = (date, name) => {
@@ -108,19 +104,13 @@ function PlanillaAsistencia() {
 
   const grabarNoAsistio = async (alumnoId) => {
     try {
-
-      
         let datos = {
           "id_alumno": alumnoId,
           "id_curso": cursoSeleccionado.id,
           "fecha": cursoSeleccionado.fecha_inicio,
           "asistio": false
         }
-        setAsistencia(datos);
-      
-
-
-      setAsistencia(datos);
+        
       console.log(datos)
 
       //Lo que está trayendo:
