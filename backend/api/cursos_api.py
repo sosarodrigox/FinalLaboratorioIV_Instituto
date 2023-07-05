@@ -51,7 +51,7 @@ def get_cursos_profesor(id_profesor: int, db=Depends(get_db)):
 @cursos_api.post('', response_model=CursoApi, status_code=201)
 def post(datos: CursoSinId, db=Depends(get_db)):
     # Verifica que hay profesor titular y no se el mismo que el auxiliar
-    if datos.profesor_titular_id == "":
+    if datos.profesor_titular_id == None:
         raise HTTPException(
             status_code=400, detail='El profesor titular no puede estar vacío')
     else:
